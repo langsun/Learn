@@ -19,8 +19,7 @@
 
 #####二、AIDL是怎么和Binder驱动通信的
 
-<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC02
-.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC02.jpg" width = "600" height = "350">
 
 1. 每个aidl文件都会在gen目录下生成对应的java文件，aidl包含两个部分：Stub（存根）、Proxy（代理）
 <img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC08.jpg" width = "600" height = "350">
