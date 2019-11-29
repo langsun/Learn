@@ -17,11 +17,11 @@
 
 #####问题图
 类A通过接口Interface1依赖类B,类C通过接口Interface1依赖类D,如果接口Interface1对于类A和类C来说不是最小接口,那么类 B 和类 D 必须去实现他们不需要的方法。
-<img src = "/Users/sun/Desktop/技术学习/PDF/Java设计模式/img/设计模式1.jpg" width = "450" height = "350">
+<img src = "https://github.com/langsun/Learn/blob/master/zimage/DesignPatterns/DesignPatterns01.jpg" width = "450" height = "350">
 #####解决图
 将接口 Interface1 拆分为独立的几个接口(这里我们拆分成 3 个接口),类 A 和类 C 分别与他们需要的接口建立 依赖关系。也就是采用接口隔离原则
 
-<img src = "/Users/sun/Desktop/技术学习/PDF/Java设计模式/img/设计模式2.jpg" width = "500" height = "250">
+<img src = "https://github.com/langsun/Learn/blob/master/zimage/DesignPatterns/DesignPatterns02.jpg" width = "500" height = "250">
 ###3.依赖倒转(倒置)原则
 #####基本介绍
 1. 高层模块不应该依赖低层模块,二者都应该依赖其抽象2. **抽象不应该依赖细节,细节应该依赖抽象**3. 依赖倒转(倒置)的中心思想是**面向接口编程**4. 依赖倒转原则是基于这样的设计理念:相对于细节的多变性,抽象的东西要稳定的多。以抽象为基础搭建的架 构比以细节为基础的架构要稳定的多。在 java 中,抽象指的是接口或抽象类,细节就是具体的实现类5. 使用**接口或抽象类**的目的是制定好规范,而不涉及任何具体的操作,把**展现细节的任务交给他们的实现类去完成**
@@ -52,7 +52,7 @@
 ###7.合成复用原则(Composite Reuse Principle)
 #####基本介绍
 尽量使用合成/聚合的方式,而不是使用继承
-<img src="/Users/sun/Desktop/技术学习/PDF/Java设计模式/img/设计模式3.jpg" width = "500" height = "350">
+<img src="https://github.com/langsun/Learn/blob/master/zimage/DesignPatterns/DesignPatterns03.jpg" width = "500" height = "350">
 ###设计原则核心思想
 		1) 找出应用中可能需要变化之处,把它们独立出来,不要和那些不需要变化的代码混在一起。
 		2) 针对接口编程,而不是针对实现编程。
