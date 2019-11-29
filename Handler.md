@@ -16,7 +16,7 @@ java.lang.NullPointerException|在Handler把消息处理完之后，但是页面
 
 ###三、Handler模型
 
-<img src = "/Users/sun/Desktop/技术学习/PDF/Handler/handler1.jpg" width = "600" height = "350"> 
+<img src = "https://github.com/langsun/Learn/blob/master/zimage/handler/handler1.jpg" width = "600" height = "350"> 
 
 ###四、源码分析
 #####发送消息
@@ -25,26 +25,26 @@ java.lang.NullPointerException|在Handler把消息处理完之后，但是页面
 
 * Handler.XXXMessage最终都会调用Handler.enqueueMessage，最后都会调用MessageQueue.enqueueMessage
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler2.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler2.jpg" width = "600" height = "350">
 
 * 在Handler中enqueueMessage中，msg.tagate = this;就是把当前Handler打包到msg中，确保了handler的唯一性
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler9.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler9.jpg" width = "600" height = "350">
 
 
 **MessageQueue主要函数**
 
 * MessageQueue消息的发送与接收，利用内存实现线程间通信
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler8.jpg" width = "600" height = "300">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler8.jpg" width = "600" height = "300">
 
 * MessageQueue.enqueueMessage
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler4.jpg" width = "600" height = "300">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler4.jpg" width = "600" height = "300">
 
 * 示意图如下
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler3.jpg" width = "600" height = "230">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler3.jpg" width = "600" height = "230">
 
 #####接收消息
 
@@ -53,38 +53,38 @@ java.lang.NullPointerException|在Handler把消息处理完之后，但是页面
 
 * 在ActivityThread中Looper.prepareMainLooper();对Looper进行初始化
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler6.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler6.jpg" width = "600" height = "350">
 
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler10.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler10.jpg" width = "600" height = "350">
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler11.jpg" width = "600" height = "150">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler11.jpg" width = "600" height = "150">
 
 * 介绍一下ThreadLocal，线程隔离工具，里面以map存储模式<key,value>   key 为当前线程，Value 为泛型T，在当前Looper中  Value就是Looper
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler7.jpg" width = "600" height = "600">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler7.jpg" width = "600" height = "600">
 
 * Looper准备完毕后，启动Looper.loop()方法，在loop()中调用MessageQueue.next()
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler16.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler16.jpg" width = "600" height = "350">
 
 * MessageQueue.next()
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler5.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler5.jpg" width = "600" height = "350">
 
 * handler.handleMessage()
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler17.jpg" width = "600" height = "300">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler17.jpg" width = "600" height = "300">
 
 
 #####消息的阻塞
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler12.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler12.jpg" width = "600" height = "350">
 #####消息的唤醒
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler13.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler13.jpg" width = "600" height = "350">
 
 ###Q&A
-<img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler14.jpg" width = "600" height = "250">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler14.jpg" width = "600" height = "250">
 
   
     Q: ThreadLocal底层实现是ThreadLocalMap,也是一个Map，但为什么不直接使用HashMap呢，非要设计一个ThreadLocal呢？
@@ -101,7 +101,7 @@ java.lang.NullPointerException|在Handler把消息处理完之后，但是页面
     A: 能，surfaceView可以在子线程中更新UI，王者荣耀就是在surfaceView可以在子线程中更新UI
     
  下面的代码也能在子线程中更新UI，因为**在onCreate()方法执行的时候，onResume()方法还没有执行，系统不会检测在什么线程中更新UI，详情请看ActivityManagerService源码**
- <img src ="/Users/sun/Desktop/技术学习/PDF/Handler/handler15.jpg" width = "600" height = "350">
+ <img src ="https://github.com/langsun/Learn/blob/master/zimage/handler/handler15.jpg" width = "600" height = "350">
  
  
 ###五、回顾
