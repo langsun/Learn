@@ -1,7 +1,7 @@
 ###进程间通信
 #####一、基本描述
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC01.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC01.jpg" width = "600" height = "350">
 
 1. 进程A访问进程B，肯定是访问进程B中的变量或者函数
 2. 在安卓手机中，每一个进程都会单独的分配一块内存，所有的变量和方法都放在内存中
@@ -19,22 +19,22 @@
 
 #####二、AIDL是怎么和Binder驱动通信的
 
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC02
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC02
 .jpg" width = "600" height = "350">
 
 1. 每个aidl文件都会在gen目录下生成对应的java文件，aidl包含两个部分：Stub（存根）、Proxy（代理）
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC08.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC08.jpg" width = "600" height = "350">
 
 2. Stub：相当于服务端，用于被Binder驱动访问。
 3. Proxy：相当于客户端，用于访问Binder驱动。
 4. 进程A的Proxy（客户端）主动访问Binder驱动（服务端），将数据写到Binder驱动中，然后再由Binder驱动（客户端）来访问进程B的Stub（服务端），这就实现了进程A对进程B的访问。反之亦然。
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC04.jpg" width = "600" height = "350">
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC05.jpg" width = "600" height = "350">
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC06.jpg" width = "600" height = "350">
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC07.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC04.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC05.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC06.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC07.jpg" width = "600" height = "350">
 
 #####三、IPC 的应用
 1. 四大组件 的运行，生命周期都是由IPC进行实现的。比如启动一个应用，就是由一个进程打开另一个进程
 
 2. 系统服务     系统服务和各个应用不在同一个进程中   this.getSystemService(Context.XXXService) 
-<img src ="/Users/sun/Desktop/技术学习/PDF/IPC进程间通信/IPC03.jpg" width = "600" height = "350">
+<img src ="https://github.com/langsun/Learn/blob/master/zimage/ipc/IPC03.jpg" width = "600" height = "350">
