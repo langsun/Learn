@@ -1,7 +1,7 @@
 ###剑指offer JAVA版
 [剑指offer JAVA版](https://yq.aliyun.com/articles/642728)
 
-1. [二维数组中的查找](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?spm=a2c4e.10696291.0.0.3b9619a4BHbfYK&tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+#####1.[二维数组中的查找](https://www.nowcoder.com/practice/abc3fe2ce8e146608e868a70efebf62e?spm=a2c4e.10696291.0.0.3b9619a4BHbfYK&tpId=13&tqId=11154&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
  **题目描述**
 	   
@@ -69,8 +69,127 @@
     }
       
 
-2. [替换空格](https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?spm=a2c4e.10696291.0.0.132919a4UbhRdJ&tpId=13&tqId=11155&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-3. [从尾到头打印链表](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?spm=a2c4e.10696291.0.0.393919a4tAP4fH&tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+#####2.[替换空格](https://www.nowcoder.com/practice/4060ac7e3e404ad1a894ef3e17650423?spm=a2c4e.10696291.0.0.132919a4UbhRdJ&tpId=13&tqId=11155&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)</br>
+
+**题目描述**</br>
+
+    请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
+    
+**解题思路**
+
+	/**
+     * 方法一 用新数组存储
+     * <p>
+     * 当遇到 " "，就追加 "%20"，否则遇到什么追加什么
+     *
+     * @param str
+     * @return
+     */
+    public static String replaceSpace(StringBuffer str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == ' ') {
+                sb.append("%20");
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 方法二 调用自带函数
+     *
+     * @param str
+     * @return
+     */
+    public String replaceSpace1(StringBuffer str) {
+        return str.toString().replace(" ", "%20");
+    }
+
+#####3.[从尾到头打印链表](https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?spm=a2c4e.10696291.0.0.393919a4tAP4fH&tpId=13&tqId=11156&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+**题目描述**
+
+	输入一个链表，按链表从尾到头的顺序返回一个ArrayList。
+
+**解题思路**
+
+	/**
+     * 方法一  非递归
+     * <p>
+     * Node 是链表，只能从头遍历到尾，但是输出却要求从尾到头，这是典型的"先进后出"，我们可以想到栈！
+     * ArrayList 中有个方法是 add(index,value)，可以指定 index 位置插入 value 值
+     * 所以我们在遍历 Node 的同时将每个遇到的值插入到 list 的 0 位置，最后输出 listNode 即可得到逆序链表
+     *
+     * @param node
+     * @return
+     */
+    public static List<Integer> printListFromTailToHead(Node node) {
+        List<Integer> list = new ArrayList<>();
+        if (node == null) {
+            return null;
+        }
+
+        while (node != null) {
+            list.add(0, node.val);
+            node = node.next;
+        }
+        return list;
+    }
+
+
+    /**
+     * 方法二   递归
+     * <p>
+     * 既然非递归都实现了，那么我们也可以利用递归，借助系统的"栈"帮忙打印
+     *
+     * @param node
+     * @return
+     */
+
+    static ArrayList<Integer> list = new ArrayList();
+
+    public static ArrayList<Integer> printListFromTailToHead1(Node node) {
+
+        if (node != null) {
+            printListFromTailToHead1(node.next);
+            list.add(node.val);
+        }
+        return list;
+    }
+
+
+    /**
+     * 方法三   反转链表
+     *
+     * @param node
+     * @return
+     */
+
+    public static ArrayList<Integer> printListFromTailToHead2(Node node) {
+        if (node == null) {
+            return list;
+        }
+        Node cur = node;
+        Node next = null;
+        Node head = new Node(0);//辅助头结点
+
+        while (cur != null) {
+            next = cur.next;
+            cur.next = head.next;
+            head.next = cur;
+            cur = next;
+        }
+        Node temp = head.next;
+        while (temp != null) {
+            list.add(temp.val);
+            temp = temp.next;
+        }
+        return list;
+    }
+
 4. [重建二叉树](https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?spm=a2c4e.10696291.0.0.12e419a4cOWiHX&tpId=13&tqId=11157&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 5. [用两个栈实现队列](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?spm=a2c4e.10696291.0.0.72cb19a4z5lS8c&tpId=13&tqId=11158&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 6. [旋转数组中的最小数字](https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?spm=a2c4e.10696291.0.0.615e19a4f9Vs52&tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
