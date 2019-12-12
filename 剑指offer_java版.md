@@ -190,9 +190,152 @@
         return list;
     }
 
-4. [重建二叉树](https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?spm=a2c4e.10696291.0.0.12e419a4cOWiHX&tpId=13&tqId=11157&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-5. [用两个栈实现队列](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?spm=a2c4e.10696291.0.0.72cb19a4z5lS8c&tpId=13&tqId=11158&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-6. [旋转数组中的最小数字](https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?spm=a2c4e.10696291.0.0.615e19a4f9Vs52&tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+#####4.[重建二叉树](https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?spm=a2c4e.10696291.0.0.12e419a4cOWiHX&tpId=13&tqId=11157&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+**题目描述**
+	
+	输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。 例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
+	
+**解题思路**	
+
+	   /**
+        * 分析
+        * 根据中序遍历和前序遍历可以确定二叉树，具体过程为：
+        *
+        * 根据前序序列第一个结点确定根结点
+        * 根据根结点在中序序列中的位置分割出左右两个子序列
+        * 对左子树和右子树分别递归使用同样的方法继续分解
+        * 例如：
+        * 前序序列{1,2,4,7,3,5,6,8} = pre
+        * 中序序列{4,7,2,1,5,3,8,6} = in
+        *
+        * 根据当前前序序列的第一个结点确定根结点，为 1
+        * 找到 1 在中序遍历序列中的位置，为 in[3]
+        * 切割左右子树，则 in[3] 前面的为左子树， in[3] 后面的为右子树
+        * 则切割后的左子树前序序列为：{2,4,7}，切割后的左子树中序序列为：{4,7,2}；切割后的右子树前序序列为：       
+        *{3,5,6,8}，切割后的右子树中序序列为：{5,3,8,6}
+        * 对子树分别使用同样的方法分解
+        */
+	   public static TreeNode reConstructBinaryTree(int[] pre, int[] in) {
+        if (pre.length <= 0 || in.length <= 0) {
+            return null;
+        }
+        
+        //从前序遍历中找到根
+        TreeNode root = new TreeNode(pre[0]);
+        
+        //从中序遍历中将左子树和右子树分开
+        for (int i = 0; i < in.length; i++) {
+            if (in[i] == pre[0]) {
+                // 左子树，注意 copyOfRange 函数，左闭右开
+                root.left = reConstructBinaryTree(Arrays.copyOfRange(pre, 1, i + 1), 
+                Arrays.copyOfRange(in, 0, i));
+                
+                // 右子树，注意 copyOfRange 函数，左闭右开
+                root.right = reConstructBinaryTree(Arrays.copyOfRange(pre, i + 1, pre.length), 
+                Arrays.copyOfRange(in, i + 1, in.length));
+            }
+        }
+        return root;
+    }
+
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        public TreeNode(int v) {
+            this.val = v;
+        }
+    }
+
+
+#####5. [用两个栈实现队列](https://www.nowcoder.com/practice/54275ddae22f475981afa2244dd448c6?spm=a2c4e.10696291.0.0.72cb19a4z5lS8c&tpId=13&tqId=11158&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+**题目描述**
+
+	用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
+ 
+**解题思路**
+
+	Stack<Integer> stack1 = new Stack<Integer>();
+    Stack<Integer> stack2 = new Stack<Integer>();
+    
+	public static void push(int node) {
+        stack1.push(node);
+    }
+
+    public static int pop() {
+        while (stack2.size() == 0) {
+            while (stack1.size() > 0) {
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.pop();
+    }
+ 
+#####6.[旋转数组中的最小数字](https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?spm=a2c4e.10696291.0.0.615e19a4f9Vs52&tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+**题目描述**
+
+	把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
+	输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+	例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
+	NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+	
+**解题思路**
+
+	/**
+     * 方法一 暴力法直接寻找
+     *
+     * 在两段范围内都是非降序，当不符合这个规律时，就找到了最小数字
+     * @param array
+     * @return
+     */
+    public static int minNumberInRotateArray(int[] array) {
+        int min = 0;
+        for (int i = 0; i < array.length - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                min = array[i + 1];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 方法二 排序
+     *
+     * 利用 Arrays 工具类里的排序函数，默认的排序规则是从小到大，排序后的数组第一个值就是最小值
+     * @param array
+     * @return
+     */
+    public static int minNumberInRotateArray2(int[] array) {
+        int n = array.length;
+        if(n == 0){
+            return 0;
+        }
+        Arrays.sort(array);
+        return array[0];
+    }
+
+    /**
+     * 方法三 利用优先队列
+     *
+     * 将数组元素挨着丢进优先队列，优先队列默认为最小堆，弹出的第一个数就是整个数组的最小值
+     * @param array
+     * @return
+     */
+    public static int minNumberInRotateArray3(int[] array) {
+        int n = array.length;
+        if(n == 0){
+            return 0;
+        }
+        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        for (int i = 0; i < n; i++) {
+            queue.add(array[i]);
+        }
+        return queue.poll();
+    }
 7. [斐波那契数列](https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?spm=a2c4e.10696291.0.0.11de19a4zp3w3m&tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 8. [二进制中1的个数](https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?spm=a2c4e.10696291.0.0.3c0619a4kn2dMY&tpId=13&tqId=11164&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 9. [数值的整数次方](https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?spm=a2c4e.10696291.0.0.9a5119a4CO537e&tpId=13&tqId=11165&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
