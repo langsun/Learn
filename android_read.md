@@ -73,9 +73,17 @@
 6. [Android 7.0 源码分析项目](https://juejin.im/post/5a936c5a6fb9a0633229ca74?utm_source=gold_browser_extension)
 7. [Binder底层原理与架构设计剖析](http://www.iqiyi.com/w_19rulmhw55.html)
 8. [动脑学院](http://www.iqiyi.com/u/2089941007/videos)
+9. [RecyclerView 源码解析](https://juejin.im/entry/586a12c5128fe10057037fba)
 
+ 
+#####二、Android Framework
 
-#####二、Java
+1. [工匠若水](https://blog.csdn.net/yanbober)
+2. [Android 带你彻底理解 Window 和 WindowManager](https://blog.csdn.net/yhaolpz/article/details/68936932)
+3. [Android组件管理者ActivityManager](https://juejin.im/post/5a38eef3f265da430e4f4959)
+4. [如何下载和阅读Android源码](https://juejin.im/post/59ec35f8f265da4307026b79)
+
+#####三、Java
 1. [HasnMap源码解析](https://www.bilibili.com/video/av48144058/?p=527)
 2. [ArrayList源码分析](https://www.bilibili.com/video/av48144058/?p=527)
 3. [LinkedList源码分析](https://www.bilibili.com/video/av48144058/?p=527)
