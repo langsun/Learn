@@ -140,13 +140,119 @@
         return exponent > 0 ? res : 1 / res;
     }
 
+#####10. [调整数组顺序使奇数位于偶数前面](https://www.nowcoder.com/practice/beb5aa231adc45b2a5dcc5b62c93f593?spm=a2c4e.10696291.0.0.7adf19a4qaxJ31&tpId=13&tqId=11166&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+**题目描述**
+
+	输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于
+	数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。
+
+**解题思路**
+
+	public static void reOrderArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 1; j < array.length; j++) {
+                if (array[j] % 2 != 0 && array[j - 1] % 2 == 0) {
+                    int temp = array[j - 1];
+                    array[j - 1] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+#####11. [链表中倒数第k个结点](https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?spm=a2c4e.10696291.0.0.10b919a4Q6SU4L&tpId=13&tqId=11167&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+**题目描述**
+
+	输入一个链表，输出该链表中倒数第k个结点。
+
+**解题思路**
+
+	/**
+     * 方法1
+     * 先获取链表的总长度count，然后倒数第k个节点就是正数第count-k个节点
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+
+    public static ListNode FindKthToTail01(ListNode head, int k) {
+        int count = 0;
+        ListNode temp = head;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+        if (count < k) {
+            return null;
+        }
+        ListNode resultNode = head;
+        for (int i = 0; i < count - k; i++) {
+            resultNode = resultNode.next;
+        }
+        return resultNode;
+    }
 
 
+    /**
+     * 方法二
+     * 利用mArrayList.add(0, temp);将ListNode节点逆序存进ArrayList中，然后倒数第k个节点就是ArrayList的正数第k个节点
+     *
+     * @param head
+     * @param k
+     * @return
+     */
+    public static ListNode FindKthToTail02(ListNode head, int k) {
+        ArrayList<ListNode> mArrayList = new ArrayList<>();
+        ListNode temp = head;
+        while (temp != null) {
+            mArrayList.add(0, temp);
+            temp = temp.next;
+        }
+        ListNode resultNode = null;
+        if (mArrayList.size() >= k) {
+            for (int i = 0; i < mArrayList.size(); i++) {
+                //i与k相差1
+                if (i == k - 1) {
+                    resultNode = mArrayList.get(i);
+                }
+            }
+        }
 
+        return resultNode;
+    }
 
+    public static class ListNode {
+        int val;
+        ListNode next;
 
+        public ListNode(int val) {
+            this.val = val;
+        }
+    }
 
+#####12. [反转链表](https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?spm=a2c4e.10696291.0.0.583f19a4QpVaNM&tpId=13&tqId=11168&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
+**题目描述**
+	
+	输入一个链表，反转链表后，输出新链表的表头。
+
+**解题思路**
+
+	public static ListNode ReverseList(ListNode head){
+        ListNode newHead = new ListNode(0);
+        ListNode cur = head;
+        ListNode next = null;
+        while (cur!=null){
+            next = cur.next;
+            cur.next = newHead.next;
+            newHead.next = cur;
+            cur = next;
+        }
+        return newHead.next;
+    }
 
 
 
