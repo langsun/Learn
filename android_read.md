@@ -65,6 +65,7 @@
 
 ##五  源码解析
 #####一、Android
+
 1. [Handler源码分析](https://blog.csdn.net/qq_37321098/article/details/81535449)
 2. [Handler源码分析](https://v.qq.com/x/search/?q=handler源码解析&stag=0&smartbox_ab=)
 3. [EventBus源码框架分析](https://www.bilibili.com/video/av22119019?from=search&seid=16459437628516970951)
@@ -81,7 +82,9 @@
 1. [工匠若水](https://blog.csdn.net/yanbober)
 2. [Android 带你彻底理解 Window 和 WindowManager](https://blog.csdn.net/yhaolpz/article/details/68936932)
 3. [Android组件管理者ActivityManager](https://juejin.im/post/5a38eef3f265da430e4f4959)
+4. [彻底理解Android Binder通信架构](http://gityuan.com/2016/09/04/binder-start-service/)
 4. [如何下载和阅读Android源码](https://juejin.im/post/59ec35f8f265da4307026b79)
+5. [Gityuan](http://gityuan.com/)
 
 #####三、Java
 1. [HasnMap源码解析](https://www.bilibili.com/video/av48144058/?p=527)
