@@ -117,6 +117,7 @@
 6. [Android大厂面试题锦集附答案](https://mp.weixin.qq.com/s/fz8wcE13N96SQ1MwQL-tNQ)
 7. [Android面试题](https://mp.weixin.qq.com/s/zRSultic6T0XQp1EJw1p2Q)
 8. [2019大厂Android高级工程师面试题整理+进阶资料](https://www.jianshu.com/p/e6702d61eec9)
+9. [2020年中高级Android大厂面试秘籍，为你保驾护航金三银四，直通大厂](https://juejin.im/post/5e5b50eb6fb9a07cae136773)
 
 
 
