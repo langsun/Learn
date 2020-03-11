@@ -2,7 +2,7 @@
 ####热修复分类及对比：
 
 热补丁方案有很多，其中比较出名的有阿里的AndFix、美团的Robust、腾讯Tinker以及QZone的超级补丁方案</br>
-<img src = "https://github.com/langsun/Learn/blob/master/HotFix/image/hotfix01.jpg" width = "380" height = "425">
+<img src = "https://github.com/langsun/Learn/blob/master/HotFix/image/hotfix01.jpg" width = "380" height = "425"></br>
 ######阿里的AndFix
 
 <img src = "https://github.com/langsun/Learn/blob/master/HotFix/image/hotfix02.jpg" width = "700" height = "310">
