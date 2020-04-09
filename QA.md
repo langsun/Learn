@@ -541,7 +541,7 @@ DexAot：在安装时对dex文件执行dexopt优化之后，再将odex进行AOT�
 
 - JNI是实现Java调用C/C++的途径，NDK是Android中实现JNI的工具
 
-####37、什么是surfaceView？
+####36、什么是surfaceView？
 
 	Q: 当view中显示一些需要长时间绘制的画面怎么办？
 	A: 普通的view会卡顿，这时用surfaceView
@@ -564,13 +564,123 @@ DexAot：在安装时对dex文件执行dexopt优化之后，再将odex进行AOT�
 		
 		2.在后台线程执行繁重的绘图任务，把所有绘制的东西缓存起来，绘制完成后，在回到UI主线程中，一次性的把绘制的东西渲染到屏幕上（本质：就是后台线程绘制，UI主线程渲染）	
 
+####37、如何理解上下文Context？
+
+- Application中的Context 
+- Activity中的Context 
+- Service中的Context
 
 
+**Context内存泄漏问题**
+     静态资源导致的内存泄漏     单例模式导致内存泄漏
+
+**总结**
+
+- Context是什么?Context是”运行上下文环境“,从代码角度看 Application,Service,Activity都是Context。
+- 所有Context都是在应用的主线程ActivityThread中创建的,由于 Application,Service,Activity的祖先都是Context抽象类,所以在创 建它们的同时也会为每一个类创建一个ContextImpl类,ContextImpl 是Context的子类,真正实现Context功能方法的类。因此 Application,Service,Activity都关联着一个ContextImpl对象。
+- 尽量少用Context对象去获取静态变量,静态方法,以及单例对象。 以免导致内存泄漏。
+- 在创建与UI相关的地方,比如创建一个Dialog,或者在代码中创建一 个TextView,都用Activity的Context去创建。然而在引用静态资源, 创建静态方法,单例模式等情况下,使用生命周期更长的Application 的Context才不会导致内存泄漏。
 
 
+####38、Android中你可以使用什么进行后台操作？
+现有的后台操作机制
 
+- Service（前台服务，后台服务）
+- 线程池
+- WorkManager（JobScheduler，Firebase JobDispatcher，自定义AlarmManager）
 
+**Service和Thread的区别**
 
+	
+	Service 是android的一种机制，它是有生命周期的，当它运行的时候如果是Local Service，那么对应的 	Service 是运行在主进程的 main 线程上的。如果是Remote Service，那么对应的 Service 则是运行在
+	独立进程的 main 线程上。Service中做耗时操作一样会导致ANR，要想在Service中做耗时操作，那要在
+	Service中开启一个子线程
+
+	
+	Thread 是程序执行的最小单元，可以用 Thread 来执行一些异步的操作。
+
+	
+	Service的后台概念是，Service不依赖UI界面，就是有界面没界面都可以执行，只要进程在，Service就可以在，
+	界面上显示的东西可以和Service运行的没有关系，它的后台是针对UI界面来说的（如心跳服务）
+	
+	Thread的后台概念是，开启一个子线程，执行任务，可以在这个子线程做耗时操作，而不影响UI线程的展示，它的后台
+	是针对UI线程来说的
+	
+		
+	他俩没有半毛钱关系，之所以把他俩联系在一起，是因为Service有一个后台的概念，当我们要播放一个音乐的时候
+	我们会想到开启一个Service，然后Thread就是做耗时操作的，然后就把耗时操作和Service联系起来了。但是在
+	Service中做耗时操作一样会导致ANR，
+	
+**Service中创建子线程和Activity中创建子线程的区别**
+
+	1.Thread 的运行是独立的，也就是说当一个 Activity 被 finish 之后，如果没有主动停止 Thread 或者 	  Thread 里的 run 方法没有执行完毕的话，Thread 也会一直执行。因此这里会出现一个问题：当 Activity 	  被 finish 之后，不再持有该 Thread 的引用，也就是不能再控制该Thread
+	
+	2.在一个Activity中创建的子线程，其他Activity无法对其进行操作。
+	
+	3.Service就不同了，所有的Activity都可以与Service进行关联，然后可以很方便地操作其中的方法，即使	  Activity被销毁了，之后只要重新与Service建立关联，就又能够获取到原有的Service中Binder的实例。因此，	  使用Service来处理后台任务，Activity就可以放心地finish，完全不需要担心无法对后台任务进行控制的情况。
+	
+**如何进行选择？**
+
+- 此项工作是否可以延时或者需要在预定时间内完成？如点击提交按钮，完成网络请求提交 （用Thread）
+- 此项工作是否需要采取保活措施长存于系统中？如地图定位，音乐播放（用Service）
+- 此项工作是否是为了响应系统某种机制？如网络状态，电池状态（用WorkManager）
+
+	
+####39、onTrimMemory() 方法是什么？
+
+能让activity得到内存情况的通知
+
+	@Override  	public void onTrimMemory(int level) {  		super.onTrimMemory(level);  		switch (level) {  		case TRIM_MEMORY_UI_HIDDEN:  			// 进行资源释放操作  			break;  		}  	} 	
+
+**七种状态，处于前台三种，后台四种**
+
+**前台内存状态**
+
+- TRIM_MEMORY_RUNNING_MODERATE ：表示应用程序正常运行，并且不会被杀掉。但是目前手机的内存已经有点低了- TRIM_MEMORY_RUNNING_LOW ：表示应用程序正常运行，并且不会被杀掉。但是目前手机的内存已经非常低了，我们应该去释放掉一些不必要的资源以提升系统的性能。- TRIM_MEMORY_RUNNING_CRITICAL ：表示应用程序仍然正常运行，但是系统已经根据LRU缓存规则杀掉了大部分缓存的进程了。
+
+**后台内存状态**
+
+- TRIM_MEMORY_UI_HIDDEN：UI组件全部不可见的时候才会触发，一旦触发了之后就说明用户已经离开了我们的程序- TRIM_MEMORY_BACKGROUND：表示手机目前内存已经很低了，系统准备开始根据LRU缓存来清理进程。这个时候我们的程序在LRU缓存列表的最近位置，是不太可能被清理掉的。- TRIM_MEMORY_MODERATE：表示手机目前内存已经很低了，并且我们的程序处于LRU缓存列表的中间位置。- TRIM_MEMORY_COMPLETE：表示手机目前内存已经很低了，并且我们的程序处于LRU缓存列表的最边缘位置。
+
+####40、LayoutInflater.inflate函数意义与参数说明
+
+所有xml文件的解析都是由LayoutInflater.inflate函数来解析的
+
+	public View inflate (int resource, ViewGroup root)
+	public View inflate (int resource, ViewGroup root, boolean attachToRoot)
+	
+	两个参数的inflate会调用三个参数的inflate，最终都调用
+	public View inflate(XmlPullParser parser, ViewGroup root, boolean attachToRoot) {
+   
+	}	
+
+可以分这四种情况分析
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="150dp"    //注释1     
+    	android:layout_height="150dp"   //注释2  
+    	android:background="#ff0000">
+
+    	<Button
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="开开心心每一天" />
+
+	</LinearLayout>
+
+	inflater.inflate(R.layout.item, null, true);
+	inflater.inflate(R.layout.item, null, false);
+	inflater.inflate(R.layout.item, parent, true);
+	inflater.inflate(R.layout.item, parent, false);
+    
+- 第一个参数：想要添加的布局
+
+- 第二个参数：想要添加到哪个布局上面</br>
+         （null和!null的区别 null时第一个参数中最外层的布局大小无效，也就是注释1注释2无效，!null时候最外层的布局大小有效，也就是注释1注释2有效）
+         
+- 第三个参数：是否直接添加到第二个参数布局上面</br>
+         （true代表layout文件填充的View会被直接添加进parent,有可能报错，而传入false则代表创建的View会以其他方式被添加进parent）
 
 
 
