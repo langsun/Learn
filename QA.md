@@ -724,7 +724,7 @@ DexAot：在安装时对dex文件执行dexopt优化之后，再将odex进行AOT�
 - classes.dex：java文件编译的
 - resources.arsc：
 [APK的打包流程](https://juejin.im/entry/58b78d1b61ff4b006cd47e5b)
-####43、	dialog不能application的原因 WMS
+####43、WMS
 ###### Activity与Window相关概念
 - Activity只负责生命周期和事件处理
 - Window只控制视图
@@ -891,7 +891,7 @@ DexAot：在安装时对dex文件执行dexopt优化之后，再将odex进行AOT�
 
 
 
-####44、	dialog不能application的原因
+####44、dialog不能application的原因
 
 dialog 的构造方法中 
 
@@ -949,6 +949,87 @@ SystemServiceRegistry.getSystemService的
 
 	if (parentWindow != null) {
             parentWindow.adjustLayoutParamsForSubWindow(wparams);
+            
+####45、PKMS
+
+**职责**
+
+- 负责Android系统中Package的安装、升级、卸载
+- 对外提供统一的信息查询功能，其中包括查询系统中匹配某Intent的Activities、BroadCastReceivers或Services等          
+
+**apk安装的方式**
+
+- 安装系统APK和预置的APK(第一次开机时安装,没有安装界)
+
+		PackageManagerService的构造中会扫描对应目录下的apk,完成安装
+		
+- 网络下载应用安装――通过market应用完成，没有安装界面
+
+		调用PackageManager的installPackage方法执行安装
+
+- ADB工具安装,没有安装界面
+
+		/repo/system/core/adb/commandline.cpp中install_app方法,该方法调用pm_command通过send_shell_command方法将数据发送到手机端的adbd守护进程中,adbd在收到PC中Console发来的数据之后启动一个Shell,然后执行pm脚本(pm位于/system/bin目录下).pm脚本通过app_process执行pm.jar包的main函数(\system\framework\pm.jar) 对应源码: /repo/frameworks/base/cmds/pm/src/com/android/commands/pm/Pm.java
+
+- 第三方应用安装,有安装界面
+
+**apk 安装流程**
+
+- 将app复制到data/app目录下
+- 扫描并解压安装包,并把dex文件(DVM字节码)保存到dalvik-cache目录,
+- 在data/data目录下创建对应的应用数据目录.
+- 解析apk的AndroidManifest.xml文件
+- 显示快捷方式
+
+**APK卸载流程**
+
+- PKMS.deletePackage
+- 从PMS的内部结构上删除Activity，Service，Provider等信息
+- 更新Setting中的package信息
+- 删除code，resource信息
+- 删除.dex文件
+
+####46、AMS
+
+**系统启动流程**
+
+- Loader           -------》   BootLoader
+- Kernel           -------》   Linux Kernel
+- Native           -------》   Init
+- JNI              -------》   Zygote
+- Java Framework
+
+
+####47、系统服务的注册
+
+- ServiceManager的addService()
+- SystemServiceManager的startService()
+
+**总结**
+
+方式1. ServiceManager.addService():
+
+	功能：向ServiceManager注册该服务.
+	特点：服务往往直接或间接继承于Binder服务；
+	举例：input, window, package；
+	
+方式2. SystemServiceManager.startService:
+
+	功能：
+		创建服务对象；
+		执行该服务的onStart()方法；该方法会执行上面的SM.addService()；
+		根据启动到不同的阶段会回调onBootPhase()方法；
+		另外，还有多用户模式下用户状态的改变也会有回调方法；例如onStartUser();
+	特点：服务往往自身或内部类继承于SystemService；
+	举例：power, activity；
+**两种方式真正注册服务的过程都会调用到ServiceManager.addService()方法. 对于方式2多了一个服务对象创建以及 根据不同启动阶段采用不同的动作的过程。可以理解为方式2比方式1的功能更丰富。**
+
+
+
+
+
+
+
  
 ####手写单例
 
