@@ -994,11 +994,43 @@ SystemServiceRegistry.getSystemService的
 **系统启动流程**
 
 - Loader           -------》   BootLoader
-- Kernel           -------》   Linux Kernel
-- Native           -------》   Init
-- JNI              -------》   Zygote
-- Java Framework
 
+		当我们点击开机键时，首先它会把BootLoader加载起来
+
+- Kernel           -------》   Linux Kernel
+
+		然后BootLoader会把Linux Kernel加载起来，然后它会解析很多init.rc的文件，然后产生Init进程
+
+- Native           -------》   Init
+
+		Init会创建我们Android的鼻祖进程，Zygote进程，也叫孵化器
+
+- JNI              -------》   Zygote
+
+		Zygote进程会开启我们的SystemServer类
+
+- Java Framework  -------》 SystemServer 
+
+		SystemServer就开始加载我们系统需要的各种类，文件和服务，其中我们的服务分为三大块：引导服务，核心服务
+		和其他服务其中AMS属于引导服务，他是最重要的服务，当AMS准备好的时候，他启动后我们的Launcher才能跑起
+		来，Launcher跑起来我们的应用也就运行起来了
+
+**SystemServer类中启动三大服务**
+
+		引导服务：AMS、电源服务
+		核心服务：电池服务、用户状态管理服务
+		其他服务：振动器服务、网络服务、WMS、InputManagerService等
+		
+在AMS中启动Launcher
+
+
+
+**当点击一个应用图标启动一个应用的时候**
+	1. Launcher要启动一个App时，会和AMS进行通信，告诉AMS我要启动一个进程，	2. 这时AMS要创建进程，但并不是他自己创建的，他会让Zygote进程去创建一个新的进程，	3. AMS和Zygote之间是通过Local socket进行通信的，这是一个Socket通信过程。	4. 然后Zygote进程就fork出一个新的进程，也就是把自己进程的东西复制了一份出去，就形成了App进程	5. 然后App进程会告诉AMS他创建好了，他们之间是通过Binder进行通信	6. 然后AMS就会创建我们的根Activity
+
+**IPC跨进程通信**
+
+	Socket，管道，signal，binder，共享内存
 
 ####47、系统服务的注册
 

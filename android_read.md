@@ -31,6 +31,7 @@
 31.  [界面适配华为手机的虚拟按键的解决方案](https://blog.csdn.net/wzhseu/article/details/58117424)
 32.  [解决底部虚拟按键](https://blog.csdn.net/c15522627353/article/details/52452490)
 33.  [java引用总结](https://www.cnblogs.com/skywang12345/p/3154474.html)
+34.  [Android网络缓存的实现思路](https://www.cnblogs.com/mfmdaoyou/p/7352764.html)
 
 
 
@@ -45,6 +46,8 @@
 8.  [Android 7.0调用相机崩溃](https://blog.csdn.net/huangxiaoguo1/article/details/52830015)
 9.  [「Android」TakePhoto调用相机出现UndeclaredThrowableException](https://www.jianshu.com/p/e1dac53baf82)
 10.  [android studio中出现gradle编译失败： Could not resolve all dependencies for configuration ':app:_debugApkCop](https://blog.csdn.net/qq_14902389/article/details/78455756)
+11.  [解决gson实体转json时当字段值为空时，json串中就不存在该属性](https://blog.csdn.net/jingtianyiyi/article/details/49509507)
+12.  [微信开放平台Android应用签名的本质及如何获取](https://blog.csdn.net/github_2011/article/details/60966976)
 
 
 
