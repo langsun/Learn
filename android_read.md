@@ -48,6 +48,7 @@
 10.  [android studio中出现gradle编译失败： Could not resolve all dependencies for configuration ':app:_debugApkCop](https://blog.csdn.net/qq_14902389/article/details/78455756)
 11.  [解决gson实体转json时当字段值为空时，json串中就不存在该属性](https://blog.csdn.net/jingtianyiyi/article/details/49509507)
 12.  [微信开放平台Android应用签名的本质及如何获取](https://blog.csdn.net/github_2011/article/details/60966976)
+13.  [The number of method references in a .dex file cannot exceed 64K](https://www.jianshu.com/p/ac39ef8ed3e6)
 
 
 
