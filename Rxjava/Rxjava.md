@@ -1,11 +1,11 @@
 Rxjava
 ###Rxjava整体结构图
 
-<img src="https://github.com/langsun/Learn/blob/master/Rxjava/image/rxjava21.jpg" width = 850>
+<img src="https://github.com/langsun/Learn/blob/master/Rxjava/image/rxjava21.png" width = 700>
 
 ###Rxjava操作符图
 
-<img src="https://github.com/langsun/Learn/blob/master/Rxjava/image/rxjava20.jpg" width = 520>
+<img src="https://github.com/langsun/Learn/blob/master/Rxjava/image/rxjava20.png" width = 700>
 
 ###观察者模式 
 * Subject: 被观察者
