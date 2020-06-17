@@ -1,5 +1,13 @@
 Rxjava
-###观察者模式
+###Rxjava整体结构图
+
+<img src="https://github.com/langsun/Learn/blob/master/Rxjava/image/rxjava21.jpg" width = 850>
+
+###Rxjava操作符图
+
+<img src="https://github.com/langsun/Learn/blob/master/Rxjava/image/rxjava20.jpg" width = 520>
+
+###观察者模式 
 * Subject: 被观察者
 * ConcreteSubject: 具体被观察者
 * Observer: 观察者
