@@ -53,6 +53,9 @@
 ###QA、android_read、java_read
 
 	工作中遇到的问题或知识点
+###MistakesCollection
+
+	错误锦集，开发中遇到的问题，记录下来及时复习，以便再后来的开发中可以避免
 ###总结
 
 	常用知识链接
